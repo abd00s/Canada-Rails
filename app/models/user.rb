@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :events
+  
   authenticates_with_sorcery!
 
   validates :password, length: { minimum: 3 }
