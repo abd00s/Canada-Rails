@@ -2,11 +2,12 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def welcome
-    
+    @user = User.new
   end  
 
   def show
-    @now = @user.events.last(order: "date_from").date_to = Date.now
+    @now = Event.where(user: @user).order("date_from").last
+    @now.date_to = Date.today
     @now.save
   end
 
@@ -17,7 +18,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params) 
     if @user.save
-      Event.create(date_form: @user.start_date, date_to: Date.now, location: "Canada", description: "Present", status: 1, user_id: @user.id)
+      Event.create(date_from: @user.start_date, date_to: Date.today, location: "Canada", description: "Present", status: 1, user_id: @user.id)
       redirect_to user_path(@user), notice: "Signed up successfully"
     else
       render 'new', notice: "Error signing up, please try again."
@@ -36,7 +37,8 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    @user.destroy, notice: "Good bye!"
+    @user.destroy
+    redirect_to root_path, notice: "Good bye!"
   end
 
   private
@@ -47,3 +49,4 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :application, :start_date)
   end
+end
