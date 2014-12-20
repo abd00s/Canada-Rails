@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  root 'users#welcome'
 
   resources :users, except: :index do
     resources :events, except: [:new, :edit, :show]

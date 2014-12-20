@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  def welcome
+    
+  end  
+
   def show
     @now = @user.events.last(order: "date_from").date_to = Date.now
     @now.save
@@ -42,4 +46,4 @@ class UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :application, :start_date)
-end
+  end
