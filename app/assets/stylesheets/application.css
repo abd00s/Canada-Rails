@@ -15,3 +15,8 @@
  *= require foundation_and_overrides
 
  */
+ #flag {
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+ }

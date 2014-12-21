@@ -29,10 +29,10 @@ class UsersController < ApplicationController
   end
 
   def update
-    if @user.uppdate_attributes(user_params)
+    if @user.update_attributes(user_params)
       redirect_to user_path(@user), notice: "Changes succesful"
     else
-      redner 'edit'
+      render 'edit'
     end
   end
 

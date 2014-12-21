@@ -1,31 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title><%= content_for?(:title) ? yield(:title) : "foundation-rails" %></title>
+  <title><%= content_for?(:title) ? yield(:title) : "Canada" %></title>
 
-    <%= stylesheet_link_tag    "application" %>
-    <%= javascript_include_tag "vendor/modernizr" %>
-    <%= csrf_meta_tags %>
-  </head>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "vendor/modernizr" %>
+  <%= csrf_meta_tags %>
+</head>
 
-  <body>
-  <div id="nav">
+<body>
+  <nav class="top-bar" data-topbar>
+    <ul class="title-area">
+
+      <li class="name">
+        <h1>
+          <a href="#">
+            Residency Calculator
+          </a>
+        </h1>
+      </li>
+      <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+    </ul>
     <% if current_user %>
-      <%= link_to "Edit Profile", edit_user_path(current_user.id) %>
-      <%= link_to "Logout", :logout, method: :post %>
-    <% else %>
-      <%= link_to "Register", new_user_path %> |
-      <%= link_to "Login", :login %>
+    <section class="top-bar-section">
+      <ul class="right">
+        <li class="has-dropdown">
+          <a href="#"><%= current_user.first_name %></a>
+          <ul class="dropdown">
+            <li><%= link_to "Metrics", user_path(current_user) %></li>
+            <li><%= link_to "Travel Log", user_events_path(current_user) %></li>
+            <li><%= link_to "Edit Profile", edit_user_path(current_user) %></li>
+            <li><%= link_to "Logout", :logout, method: :post %></li>
+          </ul>
+        </li>
+      </ul>
+    </section>
     <% end %>
-  </div>
-  <div>
+  </nav>
+  <div id="nav">
+  <div class="row">
     <p id="notice"><%= flash[:notice] %></p>
     <p id="alert"><%= flash[:alert] %></p>
+    <div class="large-centered">
+      <%= image_tag "flag.gif", id: "flag" %>
+    </div>
   </div>
-    <%= yield %>
-    <%= javascript_include_tag "application" %>
-  </body>
+  <%= yield %>
+  <%= javascript_include_tag "application" %>
+</body>
 </html>

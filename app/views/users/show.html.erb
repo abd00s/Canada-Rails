@@ -1,7 +1,19 @@
-<h2><%=@user.first_name%> <%=@user.last_name%>'s Profile</h2>
-<p>Ideal date to apply for PR renewal: <%= (@user.start_date + 730 + @user.absences).strftime("%B %e, %Y") %></p>
-<p>Absent days in past 5 years: <%= @user.absences %></p>
-<p>Present days in past 5 years: <%= @user.presence %></p>
-<p>Remaining Required Days: <%= (730 - @user.presence) %></p>
-<p>Eligible Days Starting From: <%= (Date.today - 5.years).strftime("%B %e, %Y") %> </p>
-<%= link_to "See Travel Log", user_events_path(@user), class: "button round" %>
+<div class="row">
+  <div class="large-12 columns">
+    <h2><%=@user.first_name%> <%=@user.last_name%>'s Profile</h2>
+    <% if current_user.application == 1 %>
+      <p>Ideal date to apply for PR renewal: <%= (@user.start_date + 730 + @user.absences).strftime("%B %e, %Y") %></p>
+      <p>Absent days in past 5 years: <%= @user.absences %></p>
+      <p>Present days in past 5 years: <%= @user.presence %></p>
+      <p>Remaining Required Days: <%= (730 - @user.presence) %></p>
+      <p>Eligible Days Starting From: <%= (Date.today - 5.years).strftime("%B %e, %Y") %> </p>
+    <% else %>
+      <p>Ideal date to apply for Citizenship: <%= (@user.start_date + 1460 + @user.absences).strftime("%B %e, %Y") %></p>
+      <p>Absent days in past 6 years: <%= @user.absences %></p>
+      <p>Present days in past 6 years: <%= @user.presence %></p>
+      <p>Remaining Required Days: <%= (1460 - @user.presence) %></p>
+      <p>Eligible Days Starting From: <%= (Date.today - 6.years).strftime("%B %e, %Y") %> </p>
+    <% end %>
+    <%= link_to "Go To Travel Log", user_events_path(@user), class: "button round" %>
+  </div>
+</div>
