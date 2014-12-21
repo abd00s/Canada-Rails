@@ -1,2 +1,7 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<h2><%=@user.first_name%> <%=@user.last_name%>'s Profile</h2>
+<p>Ideal date to apply for PR renewal: <%= (@user.start_date + 730 + @user.absences).strftime("%B %e, %Y") %></p>
+<p>Absent days in past 5 years: <%= @user.absences %></p>
+<p>Present days in past 5 years: <%= @user.presence %></p>
+<p>Remaining Required Days: <%= (730 - @user.presence) %></p>
+<p>Eligible Days Starting From: <%= (Date.today - 5.years).strftime("%B %e, %Y") %> </p>
+<%= link_to "See Travel Log", user_events_path(@user), class: "button round" %>

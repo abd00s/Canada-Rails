@@ -1,2 +1,55 @@
-<h1>Events#index</h1>
-<p>Find me in app/views/events/index.html.erb</p>
+<div class="row">
+  <div class="large-12 columns centered">
+  <h1><%= current_user.first_name %> <%= current_user.last_name %>'s Travel Log</h1>
+    <table>
+      <thead>
+        <tr>
+          <th>From</th>
+          <th>To</th>
+          <th>Location</th>
+          <th>Description</th>
+          <th>Duration</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @events.each do |e| %>
+        <tr>
+          <td><%= e.date_from %></td>
+          <td><%= e.date_to %></td>
+          <td><%= e.location %></td>
+          <td><%= e.description %></td>
+          <td><%= (e.date_to - e.date_from).to_i %></td>
+          <td><%= link_to "Edit", user_event_path(e.user, e), class: "button round tiny", method: :update %> <%= link_to "Remove", user_event_path(e.user, e), class: "button round tiny", method: :delete %> </td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="large-5 columns">
+    <h3>Add Travel</h3>
+    <%= form_for [current_user, current_user.events.build] do |f|%>
+    <div class="field">
+      <%= f.label :From %><br />
+      <%= f.date_field :date_from %>
+    </div>
+    <div class="field">
+      <%= f.label :To %><br />
+      <%= f.date_field :date_to %>
+    </div>      
+    <div class="field">
+      <%= f.label :location %><br />
+      <%= f.text_field :location %>
+    </div>
+    <div class="field">
+      <%= f.label :description %><br />
+      <%= f.text_field :description %>
+    </div>   
+    <div class="actions">
+      <%= f.submit "Add Travel", class: "button round" %>
+    </div>
+    <% end %>
+  </div>  
+</div>
+
